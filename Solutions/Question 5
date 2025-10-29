@@ -1,0 +1,53 @@
+/*
+* 20251029
+* ProjectEuler.net 
+* Question 5: Smallest Multiple 
+* Finds the smallest positive integer that is divisible by each integer 1 to 20.
+* A naive approach that checks the divisibility of each number in range 2 to 20 using nested for loop 
+* Takes about 4 seconds to execute. 
+*/
+#include <iostream>
+#include <vector>
+#include <ctime>
+using namespace std;
+
+int main() {
+    vector<int> num;
+    int candidate = 20;
+    bool divisable = true;
+    // Creates a vector that from 2 to 20
+    for (int i = 2; i <= 20; i++) {
+        num.push_back(i);
+    }
+    clock_t start = clock();
+    // While divisable is true check each number in range
+    while (divisable) {
+        // Reset found to true;
+        bool found = true;
+        // For each in number in the vector check if divisibale.
+        for (const auto i : num) {
+            // If not divisiable:
+            //      1. Set found to false
+            //      2. Increment cadidate by 2 (LCM must be even)
+            //      3. break 
+            if (candidate % i != 0) {
+                found = false;
+                candidate += 2;
+                break;
+            }
+        }
+        // If found is true: print candiate break while loop
+        if (found) {
+            cout << candidate;
+            divisable = false;
+        }
+        
+
+    }
+    clock_t end = clock();
+    
+    double time_taken = double(end - start) / CLOCKS_PER_SEC;
+    cout << "\nTime taken: " << time_taken << " seconds\n";
+    
+    return 0;
+}
